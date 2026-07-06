@@ -38,7 +38,7 @@ const createFile = async (req, res) => {
         await newRecord.save();
 
         // Track successfully created pins to return to client
-        createdPins.push({ pin, fileUrl: cloudinaryResult.secure_url });
+        createdPins.push({ pin, fileUrl: cloudinaryResult.secure_url, expiresAt: Date.now() + 20 * 60 * 1000 });
 
         // 20-minute backend cleanup fallback using dynamic resource_type
         setTimeout(async () => {
