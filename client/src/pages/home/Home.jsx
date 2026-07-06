@@ -1,18 +1,34 @@
 import { Upload } from "lucide-react";
 import { useState } from "react";
+import baseURL from "../../../utils/baseURL";
+import axios from "axios";
 
 const Home = () => {
   const [files, setFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleFileUploadChange = (e) => {
-    if (e.target.files[0]) {
-      setFiles((prev) => [...prev, ...e.target.files]);
+    const eventFile = e.target.files[0];
+    if (eventFile) {
+      setFiles((prev) => [...prev, eventFile]);
     }
   };
 
-  const handlePublishClick = () => {
-    console.log("first")
-  }
+  const handlePublishClick = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      setLoading(true);
+      const res = await axios.post(`${baseURL}/file/create`, formData);
+
+      console.log(res.data);
+    } catch (error) {
+      console.error("Upload failed", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-12/12 flex flex-col gap-12 justify-center items-center pt-38">
@@ -36,21 +52,37 @@ const Home = () => {
         </label>
       </div>
 
-      <div className="w-full p-2 pb-24 gap-4 flex justify-center items-start">
-        {files?.map((file, index) => {
+      <div className="w-full gap-4 flex flex-col-reverse justify-center items-center">
+        {files?.map((file) => {
+          const { lastModified, name, size, type } = file;
           return (
             <div
-              key={index}
-              className="w-1/2 border rounded-xl p-12 flex flex-col gap-12 "
+              key={lastModified}
+              className="border w-1/2 p-4 flex justify-between items-center rounded-2xl border-gray-300 shadow-xl"
             >
-              <div className="w-full h-full object-fill">
-                <img src={URL.createObjectURL(file)} alt={index} />
+              <div className="flex gap-2 items-center">
+                <div className="text-sm text-gray-500"> {type} </div>
+                <h1> {name} </h1>
+                <h5 className=" text-sm text-gray-500">
+                  {Math.floor(size / 1024)} kb
+                </h5>
               </div>
-              <div>
-                <button className="btn btn-neutral btn-soft" 
-                  onClick={handlePublishClick}
-                >Publish</button>
-              </div>
+
+              {loading ? (
+                <button
+                  className="btn btn-ghost"
+                  onClick={() => handlePublishClick(file)}
+                >
+                  <span className="loading loading-bars loading-xs"></span>
+                </button>
+              ) : (
+                <button
+                  className="btn btn-ghost"
+                  onClick={() => handlePublishClick(file)}
+                >
+                  Publish
+                </button>
+              )}
             </div>
           );
         })}
