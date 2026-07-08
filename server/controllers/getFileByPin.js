@@ -17,10 +17,11 @@ const getFileByPin = async (req, res) => {
             return res.status(410).json({ message: "This PIN has expired." });
         }
 
-        // Return the secure Cloudinary URL to the host device
         return res.status(200).json({
             success: true,
-            fileUrl: record.fileUrl
+            fileUrl: record.fileUrl,
+            fileType: record.fileType
+
         });
 
     } catch (error) {

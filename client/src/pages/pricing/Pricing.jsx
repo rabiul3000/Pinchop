@@ -1,9 +1,9 @@
-import React from 'react'
-
 const Pricing = () => {
   return (
-    <div>Pricing</div>
-  )
-}
+    <div className="w-full flex h-100 justify-center items-center">
+      <div className="border p-4">The page is still under developement</div>
+    </div>
+  );
+};
 
-export default Pricing
+export default Pricing;

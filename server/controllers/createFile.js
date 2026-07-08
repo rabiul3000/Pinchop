@@ -6,7 +6,7 @@ const createFile = async (req, res) => {
 
     const { file } = req;
     if (!file) return res.status(400).json({ message: "No files uploaded" });
-
+    console.log(file)
 
     try {
 
@@ -15,8 +15,11 @@ const createFile = async (req, res) => {
         const fileBase64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
 
         // Upload to Cloudinary (Changed 'raw' to 'auto' so images/PDFs render correctly)
+        const isPdf = file.mimetype === 'application/pdf';
+        const resourceType = isPdf ? 'raw' : 'image';
+
         const cloudinaryResult = await cloudinary.uploader.upload(fileBase64, {
-            resource_type: 'auto',
+            resource_type: resourceType,
             folder: 'temporary_prints'
         });
 
@@ -34,7 +37,9 @@ const createFile = async (req, res) => {
             pin,
             fileUrl: cloudinaryResult.secure_url,
             cloudinaryPublicId: cloudinaryResult.public_id,
+            fileType: file.mimetype
         });
+        console.log(cloudinaryResult.secure_url)
         await newRecord.save();
 
         // Track successfully created pins to return to client

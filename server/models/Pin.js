@@ -11,7 +11,12 @@ const pinSchema = new mongoose.Schema({
     },
     cloudinaryPublicId: {
         type: String
+    },
+
+    fileType: {
+        type: String
     }
+
 }, { timestamps: true }
 
 )
