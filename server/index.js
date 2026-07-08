@@ -29,6 +29,10 @@ app.use(async (req, res, next) => {
     }
 });
 
+app.get("/", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Server is up and running!" });
+});
+
 app.use(router);
 
 if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
