@@ -10,7 +10,7 @@ import cloudinaryConnect from "./config/cloudinaryConnect.js";
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet())
@@ -30,3 +30,4 @@ const startServer = async () => {
 };
 
 startServer();
+
