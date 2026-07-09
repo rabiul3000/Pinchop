@@ -10,34 +10,31 @@ import cloudinaryConnect from "./config/cloudinaryConnect.js";
 
 dotenv.config();
 
-export const app = express();
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
+app.use(router);
 
-app.use(async (req, res, next) => {
+
+
+const runServer = async () => {
+    let port = process.env.PORT || 3000
     try {
         await mongodbConnect();
         await cloudinaryConnect();
-        next();
+
+        app.listen(port, () => console.log(`server is running on:${port}`))
+
     } catch (err) {
         console.error("Database or Cloudinary connection failed:", err);
         res.status(500).json({ success: false, message: "Database connection failed" });
     }
-});
 
-app.get("/", (req, res) => {
-  res.status(200).json({ status: "ok", message: "Server is up and running!" });
-});
-
-app.use(router);
-
-if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
 }
 
-export default app;
+
+runServer()
