@@ -27,11 +27,10 @@ const runServer = async () => {
         await mongodbConnect();
         await cloudinaryConnect();
 
-        app.listen(port, () => console.log(`server is running on:${port}`))
+        app.listen(port, () => console.log(`server is running on http://localhost:${port}`))
 
     } catch (err) {
         console.error("Database or Cloudinary connection failed:", err);
-        res.status(500).json({ success: false, message: "Database connection failed" });
     }
 
 }
