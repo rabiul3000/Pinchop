@@ -1,14 +1,14 @@
 import express from "express"
 import createFile from "../controllers/createFile.js";
-import multerMiddleware from "../middlewares/multerMiddleWare.js";
 import getFileByPin from "../controllers/getFileByPin.js";
 import deleteFileByPin from "../controllers/deleteFileByPin.js";
+import multerMiddleWare from "../middlewares/multerMiddleWare.js";
 
 const fileRouter = express.Router()
 
 
 
-fileRouter.post("/create", multerMiddleware('file'), createFile)
+fileRouter.post("/create", multerMiddleWare('file'), createFile)
 fileRouter.get("/:pin", getFileByPin)
 fileRouter.delete("/:pin", deleteFileByPin)
 
