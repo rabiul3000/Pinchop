@@ -8,8 +8,8 @@ const upload = multer({
 })
 
 
-const multerMiddleWare = (fieldName) => {
+const multerMiddle = (fieldName) => {
     return upload.single(fieldName)
 }
 
-export default multerMiddleWare;
+export default multerMiddle;
