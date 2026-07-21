@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "./src/layouts/RootLayout";
 import Home from "./src/pages/home/Home";
-import Pricing from "./src/pages/pricing/Pricing";
 import Host from "./src/pages/host/Host";
 
 const router = createBrowserRouter([
@@ -16,10 +15,6 @@ const router = createBrowserRouter([
       {
         path: "host",
         Component: Host,
-      },
-      {
-        path: "pricing",
-        Component: Pricing,
       },
     ],
   },
