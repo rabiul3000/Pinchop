@@ -20,7 +20,6 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-base-200 bg-base-100/80 backdrop-blur-md transition-all">
       <div className="navbar max-w-7xl mx-auto px-4 sm:px-8">
-        
         {/* Navbar Start: Mobile Menu + Logo */}
         <div className="navbar-start gap-2">
           {/* Mobile Dropdown */}
@@ -44,7 +43,9 @@ const Navbar = () => {
                     <Link
                       to={link.path}
                       onClick={closeDropdown}
-                      className={isActive ? "active font-semibold" : "font-medium"}
+                      className={
+                        isActive ? "active font-semibold" : "font-medium"
+                      }
                     >
                       {link.name}
                     </Link>
@@ -59,9 +60,6 @@ const Navbar = () => {
             to="/"
             className="btn btn-ghost text-lg sm:text-xl font-black tracking-tight flex items-center gap-2 hover:bg-transparent px-1"
           >
-            <div className="p-1.5 rounded-xl bg-primary text-primary-content">
-              <Printer size={18} />
-            </div>
             <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold">
               Pinchop
             </span>
@@ -88,7 +86,6 @@ const Navbar = () => {
             })}
           </ul>
         </div>
-
       </div>
     </header>
   );
