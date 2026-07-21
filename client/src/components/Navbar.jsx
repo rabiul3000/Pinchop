@@ -1,5 +1,5 @@
-import { Menu, Printer } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { Menu } from "lucide-react";
+import { Link, useLocation } from "react-router"; 
 
 const Navbar = () => {
   const location = useLocation();
@@ -60,7 +60,7 @@ const Navbar = () => {
             to="/"
             className="btn btn-ghost text-lg sm:text-xl font-black tracking-tight flex items-center gap-2 hover:bg-transparent px-1"
           >
-            <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold">
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-extrabold">
               Pinchop
             </span>
           </Link>
